@@ -22,8 +22,8 @@ def print_header
 end
     
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  students.each.with_index(1) do |student, index|
+    puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
@@ -31,8 +31,28 @@ def print_footer(names)
   puts "Overall, we have #{names.count} great students"
 end
 
-students = input_students
-print_header
-print(students)
-print_footer(students)
+def interactive_menu
+  students = []
+  loop do 
+  # 1. print the menu and ask the user what to do 
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+    selection = gets.chomp
+    case selection 
+    when "1"
+      students = input_students
+    when "2"
+      print_header
+      print(students)
+      print_footer(students)
+    when "9"
+      exit
+    else
+      puts "I'm not sure what you mean, try again"
+    end
+  end
+end
+interactive_menu
+
 
